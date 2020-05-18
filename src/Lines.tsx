@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Line from './Line';
 import LineHandler from './LineHandler';
 import LineGenerator from './lineGenerator';
 
@@ -16,10 +17,10 @@ function Lines(): JSX.Element {
   };
 
   return (
-    <div>
-      <p style={{ fontFamily: 'monospace', fontSize: '32px' }}>{texts[0]}</p>
+    <div className="lines">
+      <Line text={texts[0]} types={['prev']} />
       <LineHandler text={texts[1]} onLineFinished={onLineFinished} />
-      <p style={{ fontFamily: 'monospace', fontSize: '32px' }}>{texts[2]}</p>
+      <Line text={texts[2]} types={['next']} />
     </div>
   );
 }

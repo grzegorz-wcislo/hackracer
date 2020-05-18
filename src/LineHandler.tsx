@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import CurrentLine from './CurrentLine';
 
 interface LineHandlerProps {
   text: string;
@@ -7,10 +8,12 @@ interface LineHandlerProps {
 
 function LineHandler({ text, onLineFinished }: LineHandlerProps): JSX.Element {
   const [garbage, setGarbage] = useState<string>('');
+  const [errors, setErrors] = useState<number[]>([]);
   const [timestamps, setTimestamps] = useState<number[]>([]);
 
   const nextLine = (): void => {
     setGarbage('');
+    setErrors([]);
     setTimestamps([]);
     onLineFinished();
   };
@@ -36,6 +39,15 @@ function LineHandler({ text, onLineFinished }: LineHandlerProps): JSX.Element {
     } else {
       if (key === ' ' && index === 0) return;
 
+      if (garbage === '') {
+        setErrors((errors) => {
+          if (errors[errors.length - 1] === index) return errors;
+          else return [...errors, index];
+        });
+      }
+
+      if (index + garbage.length >= text.length - 1) return;
+
       setGarbage((g) => g + (key === ' ' ? '█' : key));
     }
   };
@@ -45,22 +57,7 @@ function LineHandler({ text, onLineFinished }: LineHandlerProps): JSX.Element {
     return (): void => document.removeEventListener('keydown', onKeyDown);
   });
 
-  return (
-    <div className="line">
-      <p style={{ fontFamily: 'monospace', fontSize: '32px' }}>
-        <span>{text.slice(0, timestamps.length)}</span>
-        <span style={{ color: 'red' }}>{garbage}</span>
-        <span style={{ backgroundColor: 'black', color: 'white' }}>
-          {/* {text.slice(timestamps.length, timestamps.length + 1)} */}
-          {text.slice(
-            timestamps.length + garbage.length,
-            timestamps.length + garbage.length + 1
-          )}
-        </span>
-        <span>{text.slice(timestamps.length + garbage.length + 1)}</span>
-      </p>
-    </div>
-  );
+  return <CurrentLine {...{ text, timestamps, garbage, errors }} />;
 }
 
 export default LineHandler;
