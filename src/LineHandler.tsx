@@ -20,7 +20,6 @@ function LineHandler({ text, onLineFinished }: LineHandlerProps): JSX.Element {
 
   const onKeyDown = (e: KeyboardEvent): void => {
     const key = e.key;
-    console.log(e);
 
     const index = timestamps.length;
 
