@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  background-color: black;
 }
 
 .line {
@@ -12,6 +13,7 @@
   font-family: 'Courier New', Courier, monospace;
   font-size: 32px;
   line-height: 8rem;
+  color: gray;
 }
 
 .line-curr::before {
@@ -19,16 +21,20 @@
   margin-left: -2ch;
 }
 
+.char-untyped {
+  color: white;
+}
+
 .char-typed {
-  color: green;
+  color: limegreen;
 }
 
 .char-error {
-  color: orange;
+  color: red;
 }
 
 .char-garbage {
-  color: red;
+  color: darkorange;
 }
 
 .char-cursor {
@@ -41,15 +47,15 @@
 
 @keyframes blink {
   0% {
+    background-color: white;
+    color: black;
+  }
+  50% {
     background-color: black;
     color: white;
   }
-  50% {
-    background-color: white;
-    color: black;
-  }
   100% {
-    background-color: white;
-    color: black;
+    background-color: black;
+    color: white;
   }
 }
