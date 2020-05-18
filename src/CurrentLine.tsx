@@ -1,4 +1,5 @@
 import React from 'react';
+import CharType, { typeClass } from './CharType';
 
 interface CurrentLineParams {
   text: string;
@@ -6,35 +7,6 @@ interface CurrentLineParams {
   errors: number[];
   garbage: string;
 }
-
-enum CharType {
-  UNTYPED,
-  CURSOR,
-  TYPED,
-  ERROR,
-  GARBAGE,
-}
-
-interface Char {
-  index: number;
-  char: string;
-  type: CharType;
-}
-
-const typeClass = (type: CharType): string => {
-  switch (type) {
-    case CharType.UNTYPED:
-      return 'char char-untyped';
-    case CharType.CURSOR:
-      return 'char char-cursor';
-    case CharType.TYPED:
-      return 'char char-typed';
-    case CharType.ERROR:
-      return 'char char-error';
-    case CharType.GARBAGE:
-      return 'char char-garbage';
-  }
-};
 
 function CurrentLine({
   text,
@@ -82,8 +54,6 @@ function CurrentLine({
     });
 
   const characters = [...beforeCursor, ...garb, cursor, ...afterCursor];
-
-  // console.log(characters);
 
   return (
     <p className="line line-curr">

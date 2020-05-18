@@ -3,7 +3,7 @@ import CurrentLine from './CurrentLine';
 
 interface LineHandlerProps {
   text: string;
-  onLineFinished: () => void;
+  onLineFinished: (errors: number[]) => void;
 }
 
 function LineHandler({ text, onLineFinished }: LineHandlerProps): JSX.Element {
@@ -15,7 +15,7 @@ function LineHandler({ text, onLineFinished }: LineHandlerProps): JSX.Element {
     setGarbage('');
     setErrors([]);
     setTimestamps([]);
-    onLineFinished();
+    onLineFinished(errors);
   };
 
   const onKeyDown = (e: KeyboardEvent): void => {
